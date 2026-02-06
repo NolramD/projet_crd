@@ -54,3 +54,17 @@ res.mfa$eig
 # Contribution des groupes aux axes
 res.mfa$group$contrib
 res.mfa$group$coord
+
+
+# Inertie
+fviz_screeplot(res.mfa, addlabels = TRUE)
+
+# Carte des départements
+fviz_mfa_ind(res.mfa, repel = TRUE)
+
+# Variables
+fviz_mfa_var(res.mfa, "group", repel = TRUE)
+fviz_mfa_var(res.mfa, "quanti.var", repel = TRUE)
+
+# Points partiels (2013 vs 2023)
+fviz_mfa_ind(res.mfa, partial = "all", repel = TRUE)

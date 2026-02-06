@@ -1,3 +1,3 @@
 rm(list = ls())
 
-coucou nathan
+data <- read.csv2("creation.csv")

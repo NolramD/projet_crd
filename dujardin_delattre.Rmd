@@ -1,0 +1,26 @@
+---
+title: "Projet CRD"
+author: "Marlon Dujardin Nathan Delattre"
+date: "2026-02-06"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(FactoMineR)
+library(factoextra)
+library(tidyverse)
+library(dplyr)
+
+data <- read.csv2("creation.csv")
+```
+
+# Question 1
+
+Les individus de notre base de données sont les départements, que l'on peut observer à deux périodes différentes : $t_1 = 2013$ et $t_2 = 2023$.  
+Les variables sont toutes quantitatives et homogènes dans chaque groupe, mais les groupes ne sont pas comparables entre eux car les volumes sont différents entre 2013 et 2023.  
+Une ACP classique aurait deux problèmes majeurs : les données de 2023 domineraient l'analyse, ce qui ferait que les années ne serait pas du tout comparables.  
+Pour cela, l'AFM est idéale car elle permet de pondérer chaque groupe de variable afin de permettre une bonne comparaison entre groupes et d'observer les trajectoires des départements entre $t_1$ et $t_2$.
+
+# Question 2
+

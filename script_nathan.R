@@ -37,34 +37,26 @@ prof2023 <- X2023 / rowSums(X2023)
 # Données finales pour l’AFM
 data_mfa <- data.frame(prof2013, prof2023)
 
-
+# AFM
 res.mfa <- MFA(
   data_mfa,
   group = c(length(cols2013), length(cols2023)),
   type = c("s", "s"),
   name.group = c("2013", "2023"),
   ncp = 5,
-  graph = TRUE
+  graph = FALSE
 )
 
 
-# Valeurs propres
+# Listings à commenter
 res.mfa$eig
-
-# Contribution des groupes aux axes
 res.mfa$group$contrib
-res.mfa$group$coord
+res.mfa$group$RV
+res.mfa$quanti.var$contrib
 
-
-# Inertie
+# Graphiques
 fviz_screeplot(res.mfa, addlabels = TRUE)
-
-# Carte des départements
 fviz_mfa_ind(res.mfa, repel = TRUE)
-
-# Variables
 fviz_mfa_var(res.mfa, "group", repel = TRUE)
 fviz_mfa_var(res.mfa, "quanti.var", repel = TRUE)
-
-# Points partiels (2013 vs 2023)
 fviz_mfa_ind(res.mfa, partial = "all", repel = TRUE)

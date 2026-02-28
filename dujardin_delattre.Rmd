@@ -11,6 +11,9 @@ library(FactoMineR)
 library(factoextra)
 library(tidyverse)
 library(dplyr)
+library(tidyr)
+library(ggplot2)
+library(ggrepel)
 
 data <- read.csv2("creation.csv")
 ```

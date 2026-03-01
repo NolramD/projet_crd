@@ -116,9 +116,10 @@ fviz_mfa_ind(res.mfa, repel = TRUE)
 ```
 
 La carte des individus met en évidence une dispersion modérée des départements autour de l’origine, traduisant des différences de structure sectorielle sans opposition extrême.
-
 L’axe 1 distingue nettement les départements franciliens (Paris, Hauts-de-Seine, Seine-Saint-Denis, Yvelines, etc.), qui présentent une structure sectorielle spécifique, notamment marquée par le poids des activités de type information-communication et services spécialisés.
-
 L’axe 2 oppose certains territoires à profil davantage orienté vers les services à la population ou l’économie résidentielle (commerce, santé, activités récréatives) à d’autres départements au profil différent. Mayotte apparaît comme un territoire atypique sur cette dimension.
 
 Globalement, l’AFM met en évidence une structure sectorielle relativement stable entre 2013 et 2023. Les principales oppositions observées reposent sur le poids relatif du tertiaire supérieur d’une part et des services à la population d’autre part. Les écarts entre départements demeurent modérés, hormis quelques territoires atypiques.
+
+# Question 3
+

@@ -123,3 +123,39 @@ Globalement, l’AFM met en évidence une structure sectorielle relativement sta
 
 # Question 3
 
+# Question 4
+
+Afin d’identifier des regroupements de secteurs présentant des comportements similaires, une classification hiérarchique ascendante (CAH) a été réalisée sur les coordonnées factorielles des variables issues de l’AFM. La méthode de Ward a été retenue, car elle minimise l’inertie intra-classe à chaque étape de fusion.
+
+```{r}
+# Coordonnées des variables sur les axes
+coord_var <- res.mfa$quanti.var$coord[, 1:5]
+
+# Distance
+dist_var <- dist(coord_var)
+
+# CAH (Ward)
+hc_var <- hclust(dist_var, method = "ward.D2")
+
+plot(hc_var)
+```
+
+L’examen du dendrogramme met en évidence trois branches principales avant la dernière fusion. On observe un saut marqué de hauteur lors du passage de 3 à 2 classes, traduisant la fusion de groupes relativement hétérogènes. La partition en trois classes apparaît ainsi comme un compromis pertinent entre homogénéité interne et séparation des groupes.
+
+La coupure en trois classes est réalisée comme suit :
+
+```{r}
+grp_var <- cutree(hc_var, k = 3)
+table(grp_var)
+split(names(grp_var), grp_var)
+```
+
+La partition obtenue comporte respectivement 8, 12 et 12 variables, ce qui correspond à trois regroupements sectoriels cohérents (chaque secteur étant représenté deux fois : 2013 et 2023).
+
+La première classe regroupe les secteurs de l’industrie manufacturière (C), de la construction (F), de l’hébergement-restauration (I) ainsi que des services administratifs et de soutien (N). Ces activités relèvent principalement du champ productif et des services directement liés au fonctionnement courant de l’économie. Elles correspondent à des secteurs fortement ancrés dans la production ou dans l’organisation opérationnelle des entreprises.
+
+La deuxième classe rassemble le commerce (G), les activités financières (K), les activités immobilières (L), la production et distribution d’énergie (D), la gestion de l’eau et des déchets (E) ainsi que les autres activités de services (S). Cet ensemble correspond à des services marchands et à des activités de support ou techniques, souvent structurantes pour l’économie locale et indispensables au fonctionnement global des territoires.
+
+La troisième classe regroupe les transports (H), l’information et la communication (J), les activités spécialisées, scientifiques et techniques (M), l’enseignement (P), la santé (Q) ainsi que les arts et activités récréatives (R). Ce groupe correspond au tertiaire supérieur et aux services à la population. Il renvoie à des fonctions plus qualifiées, souvent associées aux dynamiques urbaines et aux fonctions métropolitaines.
+
+On observe par ailleurs que, pour chacun des secteurs, les variables correspondant à 2013 et 2023 appartiennent systématiquement à la même classe. Cette cohérence confirme la stabilité des structures sectorielles entre les deux années, résultat déjà mis en évidence par l’AFM et par le coefficient RV élevé.

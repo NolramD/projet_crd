@@ -60,3 +60,22 @@ sort(res.mfa$quanti.var$contrib[,2], decreasing = TRUE)[1:5]
 fviz_screeplot(res.mfa, addlabels = TRUE)
 fviz_mfa_ind(res.mfa, repel = TRUE)
 fviz_mfa_var(res.mfa, "quanti.var", repel = TRUE)
+
+
+
+# Question 4
+# Coordonnées des variables sur les axes
+coord_var <- res.mfa$quanti.var$coord[, 1:5]
+
+# Distance
+dist_var <- dist(coord_var)
+
+# CAH (Ward)
+hc_var <- hclust(dist_var, method = "ward.D2")
+
+plot(hc_var)
+
+# Découpage en 3 ou 4 classes
+grp_var <- cutree(hc_var, k = 3)
+table(grp_var)
+split(names(grp_var), grp_var)

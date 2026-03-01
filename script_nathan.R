@@ -54,9 +54,9 @@ res.mfa$group$contrib
 res.mfa$group$RV
 res.mfa$quanti.var$contrib
 
+sort(res.mfa$quanti.var$contrib[,1], decreasing = TRUE)[1:5]
+sort(res.mfa$quanti.var$contrib[,2], decreasing = TRUE)[1:5]
 # Graphiques
 fviz_screeplot(res.mfa, addlabels = TRUE)
 fviz_mfa_ind(res.mfa, repel = TRUE)
-fviz_mfa_var(res.mfa, "group", repel = TRUE)
 fviz_mfa_var(res.mfa, "quanti.var", repel = TRUE)
-fviz_mfa_ind(res.mfa, partial = "all", repel = TRUE)

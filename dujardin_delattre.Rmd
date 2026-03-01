@@ -27,3 +27,98 @@ Pour cela, l'AFM est idéale car elle permet de pondérer chaque groupe de varia
 
 # Question 2
 
+```{r}
+# Départements en noms de lignes
+rownames(data) <- data$Departement
+data$Departement <- NULL
+
+# Colonnes par année
+cols2013 <- grep("^X2013_", colnames(data), value = TRUE)
+cols2023 <- grep("^X2023_", colnames(data), value = TRUE)
+```
+
+Afin de comparer les comportements sectoriels indépendamment de la taille des départements, les données ont été transformées en profils (proportions par secteur) avant la mise en œuvre de l’AFM.
+L’utilisation de profils implique que l’analyse porte sur la structure sectorielle relative des départements et non sur leur niveau total de créations : l’effet taille est ainsi neutralisé.
+
+```{r}
+# Données par année
+X2013 <- data[, cols2013]
+X2023 <- data[, cols2023]
+
+# Profils (proportions)
+prof2013 <- X2013 / rowSums(X2013)
+prof2023 <- X2023 / rowSums(X2023)
+
+# Données finales pour l’AFM
+data_mfa <- data.frame(prof2013, prof2023)
+```
+
+Nous pouvons ainsi procéder à l'AFM :
+
+```{r}
+res.mfa <- MFA(
+  data_mfa,
+  group = c(length(cols2013), length(cols2023)),
+  type = c("s", "s"),
+  name.group = c("2013", "2023"),
+  ncp = 5,
+  graph = FALSE
+)
+
+res.mfa$eig
+fviz_screeplot(res.mfa, addlabels = TRUE)
+```
+
+Les deux premières dimensions expliquent 45,6 % de l’inertie totale (30,9 % pour l’axe 1 et 14,7 % pour l’axe 2). La première dimension concentre une part importante de l’information, tandis que les dimensions suivantes présentent des contributions plus faibles.
+
+Le scree plot met en évidence une décroissance progressive des valeurs propres, avec un coude marqué après la première dimension. Le plan factoriel (1,2) apparaît ainsi comme une représentation synthétique pertinente de la structure sectorielle des départements.
+
+```{r}
+res.mfa$group$contrib
+```
+
+L’axe 1 est construit de manière parfaitement équilibrée par les deux groupes (50 % pour 2013 et 50 % pour 2023).
+Il traduit donc une structure sectorielle commune aux deux années, révélant une forte stabilité des profils départementaux.
+L’axe 2 est légèrement plus influencé par 2013 (57 % contre 43 %), ce qui peut suggérer de légères évolutions structurelles, sans rupture majeure.
+
+```{r}
+res.mfa$group$RV
+```
+
+Le coefficient RV entre les groupes 2013 et 2023 est égal à 0,79, ce qui indique une forte similarité entre les structures sectorielles des deux années.
+Les profils départementaux apparaissent donc globalement stables dans le temps.
+Les évolutions observées relèvent davantage d’ajustements marginaux que de transformations structurelles profondes.
+
+```{r}
+sort(res.mfa$quanti.var$contrib[,1], decreasing = TRUE)[1:5]
+sort(res.mfa$quanti.var$contrib[,2], decreasing = TRUE)[1:5]
+```
+
+D’après les contributions des variables, l’axe 1 est principalement construit par les secteurs Information-communication (X2013_J : 9,29 ; X2023_J : 8,03) et Activités spécialisées, scientifiques et techniques (X2013_M : 8,62 ; X2023_M : 7,90), ainsi que par l’industrie manufacturière en 2023 (X2023_C : 6,67).
+Cet axe semble traduire une opposition entre départements davantage orientés vers le tertiaire supérieur (information-communication, activités spécialisées) et ceux dont la structure est relativement plus marquée par d’autres secteurs productifs. Le fait que les mêmes secteurs dominent en 2013 et 2023 va dans le sens d’une stabilité de cette dimension dans le temps.
+
+L’axe 2 est surtout expliqué par le Commerce (X2013_G : 14,43 ; X2023_G : 8,77), l’Enseignement (X2013_P : 10,07), la Santé (X2013_Q : 8,56) et les Arts / activités récréatives (X2023_R : 7,26).
+Cette dimension correspond ainsi à une opposition liée aux services à la population / économie résidentielle (commerce, enseignement, santé, loisirs) par rapport aux départements où ces secteurs pèsent relativement moins.
+
+```{r}
+fviz_mfa_var(res.mfa, "quanti.var", repel = TRUE)
+```
+
+La représentation des variables confirme l’interprétation issue des contributions.
+L’axe 1 oppose principalement les secteurs liés à l’information-communication et aux activités spécialisées (J, M) aux secteurs plus industriels et productifs (C, F).
+
+L’axe 2 est davantage structuré par les secteurs liés aux services à la population (enseignement, santé, activités récréatives), opposés à d’autres activités comme le commerce ou certains services techniques.
+
+Les flèches correspondant à 2013 et 2023 sont très proches, ce qui confirme la forte similarité des structures sectorielles entre les deux années, en cohérence avec le coefficient RV élevé.
+
+```{r}
+fviz_mfa_ind(res.mfa, repel = TRUE)
+```
+
+La carte des individus met en évidence une dispersion modérée des départements autour de l’origine, traduisant des différences de structure sectorielle sans opposition extrême.
+
+L’axe 1 distingue nettement les départements franciliens (Paris, Hauts-de-Seine, Seine-Saint-Denis, Yvelines, etc.), qui présentent une structure sectorielle spécifique, notamment marquée par le poids des activités de type information-communication et services spécialisés.
+
+L’axe 2 oppose certains territoires à profil davantage orienté vers les services à la population ou l’économie résidentielle (commerce, santé, activités récréatives) à d’autres départements au profil différent. Mayotte apparaît comme un territoire atypique sur cette dimension.
+
+Globalement, l’AFM met en évidence une structure sectorielle relativement stable entre 2013 et 2023. Les principales oppositions observées reposent sur le poids relatif du tertiaire supérieur d’une part et des services à la population d’autre part. Les écarts entre départements demeurent modérés, hormis quelques territoires atypiques.

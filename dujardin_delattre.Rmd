@@ -27,7 +27,7 @@ Pour cela, l'AFM est idéale car elle permet de pondérer chaque groupe de varia
 
 # Question 2
 
-```{r}
+```{r, warning=FALSE}
 # Départements en noms de lignes
 rownames(data) <- data$Departement
 data$Departement <- NULL
@@ -40,7 +40,7 @@ cols2023 <- grep("^X2023_", colnames(data), value = TRUE)
 Afin de comparer les comportements sectoriels indépendamment de la taille des départements, les données ont été transformées en profils (proportions par secteur) avant la mise en œuvre de l’AFM.
 L’utilisation de profils implique que l’analyse porte sur la structure sectorielle relative des départements et non sur leur niveau total de créations : l’effet taille est ainsi neutralisé.
 
-```{r}
+```{r, warning=FALSE}
 # Données par année
 X2013 <- data[, cols2013]
 X2023 <- data[, cols2023]
@@ -55,7 +55,7 @@ data_mfa <- data.frame(prof2013, prof2023)
 
 Nous pouvons ainsi procéder à l'AFM :
 
-```{r}
+```{r, warning=FALSE}
 res.mfa <- MFA(
   data_mfa,
   group = c(length(cols2013), length(cols2023)),
@@ -73,7 +73,7 @@ Les deux premières dimensions expliquent 45,6 % de l’inertie totale (30,9 % p
 
 Le scree plot met en évidence une décroissance progressive des valeurs propres, avec un coude marqué après la première dimension. Le plan factoriel (1,2) apparaît ainsi comme une représentation synthétique pertinente de la structure sectorielle des départements.
 
-```{r}
+```{r, warning=FALSE}
 res.mfa$group$contrib
 ```
 
@@ -81,7 +81,7 @@ L’axe 1 est construit de manière parfaitement équilibrée par les deux group
 Il traduit donc une structure sectorielle commune aux deux années, révélant une forte stabilité des profils départementaux.
 L’axe 2 est légèrement plus influencé par 2013 (57 % contre 43 %), ce qui peut suggérer de légères évolutions structurelles, sans rupture majeure.
 
-```{r}
+```{r, warning=FALSE}
 res.mfa$group$RV
 ```
 
@@ -89,7 +89,7 @@ Le coefficient RV entre les groupes 2013 et 2023 est égal à 0,79, ce qui indiq
 Les profils départementaux apparaissent donc globalement stables dans le temps.
 Les évolutions observées relèvent davantage d’ajustements marginaux que de transformations structurelles profondes.
 
-```{r}
+```{r, warning=FALSE}
 sort(res.mfa$quanti.var$contrib[,1], decreasing = TRUE)[1:5]
 sort(res.mfa$quanti.var$contrib[,2], decreasing = TRUE)[1:5]
 ```
@@ -100,7 +100,7 @@ Cet axe semble traduire une opposition entre départements davantage orientés v
 L’axe 2 est surtout expliqué par le Commerce (X2013_G : 14,43 ; X2023_G : 8,77), l’Enseignement (X2013_P : 10,07), la Santé (X2013_Q : 8,56) et les Arts / activités récréatives (X2023_R : 7,26).
 Cette dimension correspond ainsi à une opposition liée aux services à la population / économie résidentielle (commerce, enseignement, santé, loisirs) par rapport aux départements où ces secteurs pèsent relativement moins.
 
-```{r}
+```{r, warning=FALSE}
 fviz_mfa_var(res.mfa, "quanti.var", repel = TRUE)
 ```
 
@@ -111,7 +111,7 @@ L’axe 2 est davantage structuré par les secteurs liés aux services à la pop
 
 Les flèches correspondant à 2013 et 2023 sont très proches, ce qui confirme la forte similarité des structures sectorielles entre les deux années, en cohérence avec le coefficient RV élevé.
 
-```{r}
+```{r, warning=FALSE}
 fviz_mfa_ind(res.mfa, repel = TRUE)
 ```
 
@@ -154,7 +154,7 @@ Dans l’ensemble, cette classification met en évidence une structuration terri
 
 Afin d’identifier des regroupements de secteurs présentant des comportements similaires, une classification hiérarchique ascendante (CAH) a été réalisée sur les coordonnées factorielles des variables issues de l’AFM. La méthode de Ward a été retenue, car elle minimise l’inertie intra-classe à chaque étape de fusion.
 
-```{r}
+```{r, warning=FALSE}
 # Coordonnées des variables sur les axes
 coord_var <- res.mfa$quanti.var$coord[, 1:5]
 
@@ -167,11 +167,11 @@ hc_var <- hclust(dist_var, method = "ward.D2")
 plot(hc_var)
 ```
 
-L’examen du dendrogramme met en évidence trois branches principales avant la dernière fusion. On observe un saut marqué de hauteur lors du passage de 3 à 2 classes, traduisant la fusion de groupes relativement hétérogènes. La partition en trois classes apparaît ainsi comme un compromis pertinent entre homogénéité interne et séparation des groupes.
+L’étude du dendrogramme nous permet d'observer qu'une coupure en 3 classes apparait comme un compromis pertinent, afin d'avoir à la fois une homogénéité entre les classes ainsi qu'une bonne lisibilité des résultats. 
 
 La coupure en trois classes est réalisée comme suit :
 
-```{r}
+```{r, warning=FALSE}
 grp_var <- cutree(hc_var, k = 3)
 table(grp_var)
 split(names(grp_var), grp_var)

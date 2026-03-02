@@ -138,6 +138,18 @@ table(clust)
 split(names(clust), clust)
 ```
 
+L’examen du dendrogramme met en évidence une structure hiérarchique claire, et une coupure en quatre classes apparaît comme un compromis pertinent entre homogénéité interne des groupes et lisibilité des résultats.  
+
+La première classe, qui regroupe le plus grand nombre de départements, correspond à des territoires au profil sectoriel relativement équilibré et peu spécialisé. Il s’agit majoritairement de départements ruraux ou semi-urbains, caractérisés par une répartition des créations d’entreprises proche de la moyenne nationale. Ces territoires ne présentent pas de surreprésentation marquée d’un secteur particulier.  
+
+La deuxième classe rassemble principalement des départements à dominante rurale ou périphérique, incluant notamment des territoires du sud et de l’ouest de la France ainsi que plusieurs départements ultramarins. Leur structure entrepreneuriale est davantage orientée vers des secteurs traditionnels et résidentiels, tels que le commerce, l’hébergement-restauration ou certaines activités de services, avec un poids plus faible des activités à forte valeur ajoutée.  
+
+La troisième classe correspond à des départements dynamiques et diversifiés, souvent situés autour de grandes métropoles régionales ou sur les façades littorales. Ces territoires présentent une structure sectorielle plus équilibrée, combinant activités productives, tertiaires et services à la population. Ils constituent un profil intermédiaire entre les départements ruraux et les départements très spécialisés.  
+
+Enfin, la quatrième classe, de taille plus réduite, regroupe essentiellement les départements franciliens ainsi que le Rhône. Ces territoires se distinguent nettement par une forte spécialisation dans le tertiaire supérieur, notamment les activités d’information-communication, les services spécialisés, scientifiques et techniques, ainsi que les activités à forte intensité de connaissances. Cette classe correspond aux espaces les plus urbanisés et les plus intégrés dans les dynamiques métropolitaines.  
+
+Dans l’ensemble, cette classification met en évidence une structuration territoriale cohérente, opposant des départements ruraux ou résidentiels à des territoires urbains et métropolitains fortement spécialisés. Elle confirme les résultats de l’AFM, en soulignant la stabilité globale des profils sectoriels tout en révélant des contrastes territoriaux marqués.  
+
 # Question 4
 
 Afin d’identifier des regroupements de secteurs présentant des comportements similaires, une classification hiérarchique ascendante (CAH) a été réalisée sur les coordonnées factorielles des variables issues de l’AFM. La méthode de Ward a été retenue, car elle minimise l’inertie intra-classe à chaque étape de fusion.
@@ -173,4 +185,32 @@ La deuxième classe rassemble le commerce (G), les activités financières (K), 
 
 La troisième classe regroupe les transports (H), l’information et la communication (J), les activités spécialisées, scientifiques et techniques (M), l’enseignement (P), la santé (Q) ainsi que les arts et activités récréatives (R). Ce groupe correspond au tertiaire supérieur et aux services à la population. Il renvoie à des fonctions plus qualifiées, souvent associées aux dynamiques urbaines et aux fonctions métropolitaines.
 
-On observe par ailleurs que, pour chacun des secteurs, les variables correspondant à 2013 et 2023 appartiennent systématiquement à la même classe. Cette cohérence confirme la stabilité des structures sectorielles entre les deux années, résultat déjà mis en évidence par l’AFM et par le coefficient RV élevé.
+On observe par ailleurs que, pour chacun des secteurs, les variables correspondant à 2013 et 2023 appartiennent systématiquement à la même classe. Cette cohérence confirme la stabilité des structures sectorielles entre les deux années, résultat déjà mis en évidence par l’AFM et par le coefficient RV élevé.  
+
+# Question 5
+
+Cette étude vise à analyser les créations d’entreprises individuelles par département en France, en comparant les structures sectorielles en 2013 et en 2023. L’objectif est d’identifier les grandes dynamiques territoriales et sectorielles afin d’éclairer la décision publique.  
+
+Les départements ont été comparés non pas sur le volume total de créations, mais sur la répartition des créations entre secteurs d’activité. Cette approche permet de neutraliser l’effet de taille des départements.
+Une méthode statistique adaptée a été utilisée pour :  
+- Comparer les deux années de manière équilibrée  
+- Identifier les grandes oppositions sectorielles  
+- Regrouper les départements aux profils similaires  
+
+Les structures de création d’entreprises en 2013 et en 2023 sont très proches. Les évolutions observées relèvent davantage d’ajustements marginaux que de transformations profondes du tissu économique local.  
+
+D’un côté, les départements orientés vers le tertiaire supérieur (information, services spécialisés, activités scientifiques), principalement les territoires urbains et métropolitains.
+De l’autre, les départements davantage tournés vers les services à la population et l’économie résidentielle (commerce, santé, enseignement, loisirs), plus fréquents dans les territoires ruraux ou périphériques.  
+
+Quatre grands profils de départements se distinguent dans l'analyse :  
+- Des départements au profil moyen et peu spécialisé  
+- Des territoires ruraux ou périphériques à dominante résidentielle  
+- Des départements dynamiques et diversifiés autour des grandes métropoles régionales  
+- Un groupe très spécifique de départements métropolitains (Île-de-France, Rhône), fortement spécialisés dans les activités à forte valeur ajoutée.  
+
+Les secteurs d’activité se structurent en trois grands ensembles :  
+- Secteurs productifs et opérationnels (industrie, construction, services administratifs)  
+- Services marchands et de support (commerce, finance, immobilier, énergie)  
+- Tertiaire supérieur et services à la population (information, enseignement, santé, loisirs). 
+
+Cette analyse met en évidence une France économique plurielle, structurée autour de profils territoriaux distincts mais relativement stables. Elle fournit des éléments utiles pour adapter les politiques de développement économique aux réalités locales.

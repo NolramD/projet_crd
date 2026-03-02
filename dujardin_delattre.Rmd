@@ -123,6 +123,20 @@ Globalement, l’AFM met en évidence une structure sectorielle relativement sta
 
 # Question 3
 
+```{r}
+coord <- res.mfa$ind$coord
+
+dist_mat <- dist(coord)
+cah <- hclust(dist_mat, method = "ward.D2")
+
+fviz_dend(cah, k = 4, rect = TRUE)
+```
+
+```{r}
+clust <- cutree(cah, k = 4)
+table(clust)
+```
+
 # Question 4
 
 Afin d’identifier des regroupements de secteurs présentant des comportements similaires, une classification hiérarchique ascendante (CAH) a été réalisée sur les coordonnées factorielles des variables issues de l’AFM. La méthode de Ward a été retenue, car elle minimise l’inertie intra-classe à chaque étape de fusion.

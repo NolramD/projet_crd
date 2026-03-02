@@ -187,6 +187,8 @@ La troisième classe regroupe les transports (H), l’information et la communic
 
 On observe par ailleurs que, pour chacun des secteurs, les variables correspondant à 2013 et 2023 appartiennent systématiquement à la même classe. Cette cohérence confirme la stabilité des structures sectorielles entre les deux années, résultat déjà mis en évidence par l’AFM et par le coefficient RV élevé.  
 
+\newpage
+
 # Question 5
 
 Cette étude vise à analyser les créations d’entreprises individuelles par département en France, en comparant les structures sectorielles en 2013 et en 2023. L’objectif est d’identifier les grandes dynamiques territoriales et sectorielles afin d’éclairer la décision publique.  

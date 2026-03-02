@@ -123,7 +123,7 @@ Globalement, l’AFM met en évidence une structure sectorielle relativement sta
 
 # Question 3
 
-```{r}
+```{r, warning=FALSE}
 coord <- res.mfa$ind$coord
 
 dist_mat <- dist(coord)
@@ -135,6 +135,7 @@ fviz_dend(cah, k = 4, rect = TRUE)
 ```{r}
 clust <- cutree(cah, k = 4)
 table(clust)
+split(names(clust), clust)
 ```
 
 # Question 4
